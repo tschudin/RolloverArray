@@ -39,7 +39,7 @@ per log entry, one to three basic operation types: "create", "link"
 and "head". In this way, insertion as well as deletion can be modeled
 as is shown in the example of Figure 3.4:
 
-![Copy of Fig 3.4 in Philipp's MSc thesis, 2022, page 20](img/philipps-fig3.4.png)
+![Copy of Fig 3.4 in Philipp's MSc thesis, 2022, page 20](img/philipp-fig3.4.png)
 
 
 Based on the same approach we extended Philipp's technique by adding
