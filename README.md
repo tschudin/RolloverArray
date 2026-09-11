@@ -1,4 +1,4 @@
-# Roll-Over Lists and Sets (RoloLIST and RoloSET)
+# Rollover Lists and Sets (RoloLIST and RoloSET)
 
 How can we publish a mutable data structure via an immutable
 storage stream such that the stream can always be pruned?
@@ -46,16 +46,16 @@ as is shown in the example of Figure 3.4, extracted from his report:
 ![Copy of Fig 3.4 in Philipp's MSc thesis, 2022, page 20](img/philipp-fig3.4.png)
 
 Based on the same approach, we extend Philipp's technique by adding an
-aggressive pruning strategy using "roll-overs": Unless the
+aggressive pruning strategy using "rollovers": Unless the
 modification of the list is about adding or replacing a element (in
 which case we may have to grow the "red section"), all other actions
 must lead to pruning at least one log entry. In case that the
-to-be-pruned entry contains still revelant data, we copy its content
+to-be-pruned entry contains still relevant data, we copy its content
 as well as "link rewirings" to the front of the log. This must be done
 in a careful way as it impacts the main action on the list: For
 example, deleting an element requires updating pointers in the
 adjacent elements, but now with the catch that one of these elements
-may was moved from the back to the front of the log. This means that
+could have been moved from the back to the front of the log. This means that
 we have to update the updating information before writing the rewiring
 details to the log.
 
@@ -87,8 +87,8 @@ The empty list is encoded as
 #1534 (tail nil)
 ```
 
-```1534``` in this example is the sequence number at which the relevand
-log engries start; the rest of the line shows what is stored in the log
+```1534``` in this example is the sequence number at which the relevant
+log entries start; the rest of the line shows what is stored in the log
 at this entry.
 
 
@@ -112,7 +112,7 @@ from the log storage order. Using the same content as before, we have:
 ```
 
 As one can see, the value for the first list element is re-added to
-the log at the front (note that implicitely the ```prev``` pointer is
+the log at the front (note that implicitly the ```prev``` pointer is
 set to ```nil```).  But because the first element has changed its locations,
 we need to relink the ```prev``` link of the second element (stored at #6524)
 and let it point to #6525, which also is part of operations in entry #6525.
@@ -137,7 +137,7 @@ operations in the log entries and updating the in-memory representation
 of the list or set. In case of a full reconstruction from scratch, a first
 pass reads all log entries after the prune cutoff point, creating
 nodes (for each ```value``` commend), defining the ```prev``` link
-pointers where told to do so, and setting the currrent tail
+pointers where told to do so, and setting the current tail
 value. When completed, a second pass is necessary, now over the
 in-memory single-linked list, in order to creating the ```next```
 pointer values needed in our desired in-memory double-linked list.
